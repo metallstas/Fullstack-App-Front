@@ -22,7 +22,7 @@ export const Home = () => {
                 <Tab label="Популярные" />
             </Tabs>
             <Grid container spacing={4}>
-                <Grid xs={8} item>
+                <Grid size={8} item>
                     {[...Array(5)].map(() => (
                         <Post
                             id={1}
@@ -41,7 +41,7 @@ export const Home = () => {
                         />
                     ))}
                 </Grid>
-                <Grid xs={4} item>
+                <Grid size={4} item>
                     <TagsBlock
                         items={['react', 'typescript', 'заметки']}
                         isLoading={false}
