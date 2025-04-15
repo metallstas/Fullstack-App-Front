@@ -6,29 +6,16 @@ import Grid from '@mui/material/Grid'
 import { Post } from '../components/Post'
 import { TagsBlock } from '../components/TagsBlock'
 import { CommentsBlock } from '../components/CommentsBlock'
-import { useAddPostMutation, useGetPostsQuery } from '../redux/postsApi'
+import { useGetPostsQuery, useGetTagsQuery } from '../redux/postsApi'
 
 export const Home = () => {
     const allPosts = useGetPostsQuery()
-    const [addPost, { isLoading, isError, error }] = useAddPostMutation()
-    console.log(allPosts.data)
+    const tags = useGetTagsQuery()
 
-    const handleAddPost = async () => {
-        const newPost = {
-            title: 'My name',
-            text: 'My name is Stas',
-        }
-        await addPost(newPost).unwrap()
-    }
+    !tags.isLoading ? console.log(tags.data) : console.log('xxxxx')
 
     return (
         <>
-            <button onClick={handleAddPost}>add new Post</button>
-            {isLoading ? <p>Loading...</p> : null}
-            {isError ? <p>{error.data[0].msg}</p> : null}
-            {allPosts.data.map((el) => (
-                <p>{el.title}</p>
-            ))}
             <Tabs
                 style={{ marginBottom: 15 }}
                 value={0}
@@ -38,31 +25,30 @@ export const Home = () => {
                 <Tab label="Популярные" />
             </Tabs>
             <Grid container spacing={4}>
-                <Grid size={8} item>
-                    {[...Array(5)].map(() => (
-                        <Post
-                            id={1}
-                            title="Roast the code #1 | Rock Paper Scissors"
-                            imageUrl="https://res.cloudinary.com/practicaldev/image/fetch/s--UnAfrEG8--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/icohm5g0axh9wjmu4oc3.png"
-                            user={{
-                                avatarUrl:
-                                    'https://res.cloudinary.com/practicaldev/image/fetch/s--uigxYVRB--/c_fill,f_auto,fl_progressive,h_50,q_auto,w_50/https://dev-to-uploads.s3.amazonaws.com/uploads/user/profile_image/187971/a5359a24-b652-46be-8898-2c5df32aa6e0.png',
-                                fullName: 'Keff',
-                            }}
-                            createdAt={'12 июня 2022 г.'}
-                            viewsCount={150}
-                            commentsCount={3}
-                            tags={['react', 'fun', 'typescript']}
-                            isEditable
-                            isLoading={allPosts.isLoading}
-                        />
-                    ))}
+                <Grid size={8}>
+                    {(allPosts.isLoading ? [...Array(5)] : allPosts.data).map(
+                        (el, index) =>
+                            allPosts.isLoading ? (
+                                <Post key={index} isLoading={true} />
+                            ) : (
+                                <Post
+                                    key={el._id}
+                                    id={el._id}
+                                    title={el.title}
+                                    imageUrl="https://www.cfainstitute.org/sites/default/files/styles/coh_large/public/images/default-images/Image-placeholder.png"
+                                    user={el.author}
+                                    createdAt={el.createdAt}
+                                    viewsCount={el.viewsCount}
+                                    commentsCount={3}
+                                    tags={el.tags}
+                                    isEditable
+                                    isLoading={allPosts.isLoading}
+                                />
+                            )
+                    )}
                 </Grid>
-                <Grid size={4} item>
-                    <TagsBlock
-                        items={['react', 'typescript', 'заметки']}
-                        isLoading={false}
-                    />
+                <Grid size={4}>
+                    <TagsBlock items={tags.data} isLoading={tags.isLoading} />
                     <CommentsBlock
                         items={[
                             {
