@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import Grid from '@mui/material/Grid'
@@ -6,13 +6,29 @@ import Grid from '@mui/material/Grid'
 import { Post } from '../components/Post'
 import { TagsBlock } from '../components/TagsBlock'
 import { CommentsBlock } from '../components/CommentsBlock'
+import { useAddPostMutation, useGetPostsQuery } from '../redux/postsApi'
 
 export const Home = () => {
-    useEffect(() => {
-        fetch('http://localhost:4444/posts').then((res) => console.log(res))
-    }, [])
+    const allPosts = useGetPostsQuery()
+    const [addPost, { isLoading, isError, error }] = useAddPostMutation()
+    console.log(allPosts.data)
+
+    const handleAddPost = async () => {
+        const newPost = {
+            title: 'My name',
+            text: 'My name is Stas',
+        }
+        await addPost(newPost).unwrap()
+    }
+
     return (
         <>
+            <button onClick={handleAddPost}>add new Post</button>
+            {isLoading ? <p>Loading...</p> : null}
+            {isError ? <p>{error.data[0].msg}</p> : null}
+            {allPosts.data.map((el) => (
+                <p>{el.title}</p>
+            ))}
             <Tabs
                 style={{ marginBottom: 15 }}
                 value={0}
@@ -38,6 +54,7 @@ export const Home = () => {
                             commentsCount={3}
                             tags={['react', 'fun', 'typescript']}
                             isEditable
+                            isLoading={allPosts.isLoading}
                         />
                     ))}
                 </Grid>
