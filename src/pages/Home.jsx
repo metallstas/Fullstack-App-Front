@@ -35,7 +35,7 @@ export const Home = () => {
                                     key={el._id}
                                     _id={el._id}
                                     title={el.title}
-                                    imageUrl="https://www.cfainstitute.org/sites/default/files/styles/coh_large/public/images/default-images/Image-placeholder.png"
+                                    imageUrl={el.imageUrl}
                                     user={el.author}
                                     createdAt={el.createdAt}
                                     viewsCount={el.viewsCount}
