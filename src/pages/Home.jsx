@@ -33,7 +33,7 @@ export const Home = () => {
                             ) : (
                                 <Post
                                     key={el._id}
-                                    id={el._id}
+                                    _id={el._id}
                                     title={el.title}
                                     imageUrl="https://www.cfainstitute.org/sites/default/files/styles/coh_large/public/images/default-images/Image-placeholder.png"
                                     user={el.author}
