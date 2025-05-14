@@ -1,0 +1,21 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 150px;
+    width: 100%;
+    border-bottom: 2px solid rgba(209, 209, 209, 0.8);
+
+    h1 {
+        font-size: 20px;
+        padding: 5px 10px;
+        color: white;
+        border-radius: 4px;
+        background-color: black;
+    }
+    .buttons-block {
+        :first-child {
+            margin-right: 10px;
+        }
+    }
+}

@@ -1,0 +1,11 @@
+@use '../../UI/colors.scss' as *;
+.app {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main {
+    padding: 0 150px;
+    background-color: $main-grey;
+}

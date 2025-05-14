@@ -1,0 +1,18 @@
+@use '../colors.scss' as *;
+
+.btn {
+    padding: 5px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 4px;
+    color: $main-white;
+    background-color: $main-blue;
+    border: 1px solid $main-blue;
+    cursor: pointer;
+}
+
+.btn-white {
+    color: $main-blue;
+    background-color: $main-white;
+    border: 1px solid $main-blue;
+}
