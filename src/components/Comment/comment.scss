@@ -15,14 +15,5 @@
         h4 {
             margin-bottom: 5px;
         }
-        &::after {
-            display: block;
-            position: absolute;
-            bottom: -7px;
-            content: '';
-            height: 2px;
-            width: 100%;
-            border-bottom: 2px solid rgba(197, 197, 197, 0.5);
-        }
     }
 }

@@ -1,8 +1,14 @@
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined'
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined'
 import './post.scss'
+import { FC } from 'react'
+import { LocalFireDepartment } from '@mui/icons-material'
 
-export const Post = () => {
+type PostProps = {
+    isFullPost?: boolean
+}
+
+export const Post: FC<PostProps> = ({ isFullPost }) => {
     return (
         <article className="post">
             <img
@@ -22,13 +28,26 @@ export const Post = () => {
                     </div>
                 </div>
                 <p className="post__title">Roast the code</p>
+                {isFullPost ? (
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing
+                        elit. Eveniet accusantium blanditiis ducimus eos,
+                        numquam fugit corrupti modi provident inventore cum quos
+                        nulla rerum voluptates error. Dicta ipsum voluptatibus
+                        dolores vero?
+                    </p>
+                ) : null}
                 <p className="post__tags">#react #fun #typescript</p>
-                <div className="post__views">
-                    <div>
-                        <RemoveRedEyeOutlinedIcon /> 150
+                <div className="post__views-block">
+                    <div className="post__views-block__views">
+                        <span>
+                            <RemoveRedEyeOutlinedIcon />
+                        </span>{' '}
+                        <span className="post__views-block__count">150</span>
                     </div>
-                    <div>
-                        <ChatBubbleOutlineOutlinedIcon /> 3
+                    <div className="post__views-block__views">
+                        <ChatBubbleOutlineOutlinedIcon />{' '}
+                        <span className="post__views-block__count">3</span>
                     </div>
                 </div>
             </div>
