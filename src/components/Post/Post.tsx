@@ -4,7 +4,7 @@ import './post.scss'
 
 export const Post = () => {
     return (
-        <div className="post">
+        <article className="post">
             <img
                 className="post__img"
                 src="https://www.socialpilot.co/wp-content/uploads/2024/12/Bluesky-image-sizes-complete.webp"
@@ -17,12 +17,12 @@ export const Post = () => {
                         alt="img author"
                     />
                     <div className="author__info">
-                        <p>Joel</p>
+                        <h4>Joel</h4>
                         <p>12 июня 2023г.</p>
                     </div>
                 </div>
-                <div className="post__title">Roast the code</div>
-                <div className="post__tags">#react #fun #typescript</div>
+                <p className="post__title">Roast the code</p>
+                <p className="post__tags">#react #fun #typescript</p>
                 <div className="post__views">
                     <div>
                         <RemoveRedEyeOutlinedIcon /> 150
@@ -32,6 +32,6 @@ export const Post = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </article>
     )
 }

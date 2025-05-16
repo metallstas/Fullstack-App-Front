@@ -1,0 +1,33 @@
+@use '../../UI/colors.scss' as *;
+
+.sort {
+    display: flex;
+    width: 100%;
+    margin: 25px 0;
+    color: $main-blue;
+    :first-child {
+        margin-right: 15px;
+    }
+
+    &__btn {
+        position: relative;
+        font-size: 14px;
+        border: none;
+        background-color: inherit;
+        transition: all 0.5s linear;
+        cursor: pointer;
+    }
+}
+
+.sortActive {
+    color: $main-blue;
+    &::after {
+        width: 100%;
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        content: '';
+        height: 2px;
+        border-bottom: 2px solid $main-blue;
+    }
+}

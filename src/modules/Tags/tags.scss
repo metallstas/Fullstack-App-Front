@@ -1,0 +1,17 @@
+@use '../../UI/colors.scss' as *;
+
+.tags {
+    padding: 10px;
+    border-radius: 10px;
+    background-color: $main-white;
+
+    h3 {
+        margin-bottom: 20px;
+    }
+    .tag {
+        margin-bottom: 10px;
+    }
+    &:last-child {
+        margin-bottom: 0;
+    }
+}

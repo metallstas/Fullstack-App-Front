@@ -1,4 +1,16 @@
 .home {
-    display: flex;
     padding: 0;
+
+    &__posts {
+        display: flex;
+        width: 100%;
+    }
+}
+
+.info {
+    max-width: 30%;
+    margin-left: 20px;
+    .comments {
+        margin-top: 30px;
+    }
 }

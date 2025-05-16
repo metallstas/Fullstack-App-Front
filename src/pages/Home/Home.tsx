@@ -2,9 +2,11 @@
 // import { href, Link, useParams } from 'react-router'
 
 import { Tags } from '@/modules/Tags/Tags'
-import './home.scss'
 import { PostList } from '@/modules/PostList/PostList'
-import { Comments } from '@/modules/Comments/Comment'
+import { Comments } from '@/modules/Comments/Comments'
+import { SortPost } from '@/modules/SortPost/SortPost'
+
+import './home.scss'
 
 const Home = () => {
     // const params = useParams<PathParams[typeof ROUTES.POST]>()
@@ -13,10 +15,13 @@ const Home = () => {
             {/* <Link to={href(ROUTES.POST, { postId: '1' })}>
                 Go to Post {params.postId}
             </Link> */}
-            <PostList />
-            <div className="info">
-                <Tags />
-                <Comments />
+            <SortPost />
+            <div className="home__posts">
+                <PostList />
+                <aside className="info">
+                    <Tags />
+                    <Comments />
+                </aside>
             </div>
         </div>
     )

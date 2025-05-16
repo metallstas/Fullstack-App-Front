@@ -9,10 +9,20 @@
     }
 
     &__info {
+        margin-left: 70px;
         padding: 10px;
     }
+
+    &__title {
+        font-size: 20px;
+        margin-top: 15px;
+        font-weight: 600;
+    }
     &__author {
+        position: relative;
         img {
+            position: absolute;
+            left: -60px;
             border-radius: 100%;
             width: 50px;
         }

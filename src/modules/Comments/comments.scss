@@ -1,0 +1,10 @@
+@use '../../UI/colors.scss' as *;
+
+.comments {
+    h3 {
+        margin-bottom: 20px;
+    }
+    padding: 10px;
+    border-radius: 10px;
+    background-color: $main-white;
+}

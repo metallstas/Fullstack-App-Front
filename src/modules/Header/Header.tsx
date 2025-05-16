@@ -4,10 +4,12 @@ import './header.scss'
 export const Header = () => {
     return (
         <header className="header">
-            <h1>My Blog</h1>
-            <div className="buttons-block">
-                <Button text={'Войти'} isWhite={true} />
-                <Button text={'Создать аккаунт'} />
+            <div className="header__container">
+                <h1>My Blog</h1>
+                <div className="buttons-block">
+                    <Button text={'Войти'} isWhite={true} />
+                    <Button text={'Создать аккаунт'} />
+                </div>
             </div>
         </header>
     )
