@@ -1,0 +1,29 @@
+.text-editor {
+	display: flex;
+
+	&__wrapper {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	&__section {
+		margin: 10px 0;
+		padding: 0 5px;
+		&:not(:last-child) {
+			border-right: 1px solid grey;
+		}
+
+		:hover {
+			background-color: rgba(202, 202, 202, 0.5);
+		}
+	}
+
+	&__btn {
+		border-radius: 4px;
+		cursor: pointer;
+		:hover {
+			background-color: rgba(202, 202, 202, 0.5);
+		}
+	}
+}
