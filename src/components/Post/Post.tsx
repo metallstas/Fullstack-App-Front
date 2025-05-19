@@ -2,7 +2,6 @@ import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined'
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined'
 import './post.scss'
 import { FC } from 'react'
-import { LocalFireDepartment } from '@mui/icons-material'
 
 type PostProps = {
     isFullPost?: boolean

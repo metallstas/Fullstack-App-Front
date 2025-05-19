@@ -1,0 +1,32 @@
+@use '../../UI/colors.scss' as *;
+
+.add-post {
+    background-color: $main-white;
+    margin-top: 50px;
+    padding: 15px;
+    border-radius: 10px;
+    width: 100%;
+
+    // &__container {
+    //     // width: 1200px;
+    //     max-width: 1200px;
+    // }
+    &__btn {
+        display: block;
+    }
+
+    &__title {
+        display: block;
+        border: none;
+        font-size: 35px;
+        margin-top: 15px;
+        outline: none;
+    }
+    &__tags {
+        border: none;
+        font-size: 20px;
+        margin-top: 15px;
+        border-bottom: 3px solid $main-grey;
+        outline: none;
+    }
+}

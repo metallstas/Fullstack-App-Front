@@ -8,11 +8,12 @@ export const App = () => {
     return (
         <div className="app">
             <Header />
-            <div className="container">
+            <div className="wrapper">
                 <main className="main">
                     <Outlet />
                 </main>
             </div>
+
             <Footer />
         </div>
     )

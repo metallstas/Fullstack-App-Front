@@ -24,7 +24,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: ROUTES.ADD_POST,
-                lazy: () => import('@/pages/Post/FullPost'),
+                lazy: () => import('@/pages/AddPost/AddPost'),
             },
         ],
     },
