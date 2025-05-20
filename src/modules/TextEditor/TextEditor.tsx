@@ -1,33 +1,32 @@
 import { ToolsText } from '@/components/ToolsText/ToolsText'
-import { JSX, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 
 import './text-editor.scss'
 import { useAppSelector } from '@/store/hooks'
 
 export const TextEditor = () => {
-    const [text, setText] = useState<string>('')
-    const textRef = useRef<HTMLDivElement>(null)
-    const isBold = useAppSelector((state) => state.textEditor.bold)
-    const isItalic = useAppSelector((state) => state.textEditor.italic)
-    const range = new Range()
+	const [text, setText] = useState<string>('')
+	const textRef = useRef<HTMLDivElement>(null)
+	const isBold = useAppSelector((state) => state.textEditor.bold)
+	const isItalic = useAppSelector((state) => state.textEditor.italic)
+	const range = new Range()
 
-    const b = () => {
-        console.log(textRef.current?.childNodes)
-    }
+	const b = () => {
+		console.dir(navigator.clipboard)
+	}
 
-    b()
+	b()
 
-    return (
-        <section className="text-editor">
-            <ToolsText />
-            <div
-                ref={textRef}
-                contentEditable={true}
-                onChange={(e) => setText('')}
-                className={`text-editor__text`}
-            >
-                {}
-            </div>
-        </section>
-    )
+	return (
+		<section className="text-editor">
+			<ToolsText />
+			<div
+				ref={textRef}
+				contentEditable={true}
+				onInput={(e) => console.log(e.currentTarget.textContent)}
+				className={`text-editor__text`}
+				aria-placeholder="Текс поста"
+			></div>
+		</section>
+	)
 }
