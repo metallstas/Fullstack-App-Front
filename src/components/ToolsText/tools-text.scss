@@ -1,0 +1,49 @@
+.tools-text {
+    display: flex;
+
+    &__wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__section {
+        display: flex;
+        justify-content: center;
+        margin: 10px 0;
+        padding: 0 5px;
+
+        &:not(:last-child) {
+            border-right: 1px solid grey;
+        }
+    }
+
+    &__item {
+        margin: 0 2px;
+        :hover {
+            border: 1px solid grey;
+        }
+    }
+
+    &__btn {
+        border-radius: 4px;
+        padding: 2px;
+        font-size: 16px;
+        cursor: pointer;
+        :hover {
+            background-color: rgba(202, 202, 202, 0.5);
+        }
+    }
+
+    &__size-text {
+        padding: 3px;
+        border-radius: 5px;
+        background-color: #fff;
+        :hover {
+            background-color: #fff;
+        }
+    }
+}
+.pressed {
+    background-color: rgba(202, 202, 202, 0.5);
+}
