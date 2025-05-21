@@ -1,40 +1,53 @@
 @use '../../UI/colors.scss' as *;
 
 .login {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    border-radius: 10px;
-    background-color: $main-white;
-    text-align: center;
-    padding: 30px 15px;
-    margin-top: 50px;
-    width: 400px;
-    margin-left: auto;
-    margin-right: auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	border-radius: 10px;
+	background-color: $main-white;
+	text-align: center;
+	padding: 30px 15px;
+	margin-top: 50px;
+	width: 400px;
+	margin-left: auto;
+	margin-right: auto;
 
-    h3 {
-        font-size: 25px;
-        margin-bottom: 15px;
-    }
-    &__input {
-        // outline: none;
-        font-size: 18px;
-        margin-top: 25px;
-        border-radius: 5px;
-        padding: 10px 10px;
-        border: 1px solid $grey-text;
-    }
-    &__input:focus {
-        outline: 2px solid $main-blue;
-        border: none;
-    }
-    &__input:first-child {
-        margin-top: 0;
-    }
-    button {
-        margin-top: 30px;
-        width: 100%;
-    }
+	&__wrapper-pass {
+		position: relative;
+		margin-top: 15px;
+	}
+
+	h3 {
+		font-size: 25px;
+		margin-bottom: 25px;
+	}
+	&__input {
+		// outline: none;
+		background-color: inherit;
+		font-size: 18px;
+		margin-top: 25px;
+		border-radius: 5px;
+		padding: 10px 10px;
+		border: 1px solid $grey-text;
+		&__email {
+			margin-top: 0;
+		}
+	}
+	&__input:focus {
+		outline: 2px solid $main-blue;
+		border: none;
+	}
+
+	&__eye {
+		position: absolute;
+		transform: translateY(-50%);
+		right: 10px;
+		top: 50%;
+	}
+	button {
+		margin-top: 30px;
+		width: 100%;
+	}
 }
