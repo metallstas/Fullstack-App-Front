@@ -13,11 +13,13 @@ const AddPost = () => {
                     additionalClass="add-post__btn"
                 />
                 <Input
+                    value=""
                     customClass="add-post__title"
                     type={'text'}
                     placeholder="Заголовок статьи"
                 />
                 <Input
+                    value=""
                     customClass="add-post__tags"
                     type={'text'}
                     placeholder="#Тэги"
