@@ -1,55 +1,78 @@
+import { useAppDispatch, useAppSelector } from '@/store/hooks'
+import { setEmail, setPassword } from '@/store/slices/auth'
+
 import { Input } from '@/UI/Input/Input'
 import { Button } from '@/UI/Button/Button'
-import { useState } from 'react'
 import { Eye } from '@/components/Eye/Eye'
 
 import './login.scss'
-import { useAppSelector } from '@/store/hooks'
 
 const Login = () => {
-	const [email, setEmail] = useState<string>('')
-	const [password, setPassword] = useState<string>('')
-	const visiblePass = useAppSelector((state) => state.auth.visiblePass)
+    const dispatch = useAppDispatch()
+    const email = useAppSelector((state) => state.auth.email)
+    const password = useAppSelector((state) => state.auth.password)
+    const validEmail = useAppSelector((state) => state.auth.validEmail)
+    const validPassword = useAppSelector((state) => state.auth.validPassword)
+    const visiblePass = useAppSelector((state) => state.auth.visiblePass)
+    const visible = visiblePass ? 'text' : 'password'
+    const errorClassEmail =
+        validEmail !== 'ok' && validEmail !== '' ? 'error' : ''
+    const errorClassPassword =
+        validPassword !== 'ok' && validPassword !== '' ? 'error' : ''
 
-	const visible = visiblePass ? 'text' : 'password'
+    const handlerChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const emailNew = e.target.value
+        dispatch(setEmail({ email: emailNew }))
+    }
 
-	const handlerChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setEmail(e.target.value)
-	}
+    const handlerChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+        dispatch(setPassword({ password: e.target.value }))
+    }
 
-	const handlerChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setPassword(e.target.value)
-	}
+    const handlerSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault()
+        console.log('submit')
+    }
 
-	return (
-		<section className="login">
-			<h3>Вход в аккаунт</h3>
-			<form className="login__form">
-				<Input
-					onChange={handlerChangeEmail}
-					value={email}
-					customClass="login__input login__input__email"
-					type={'email'}
-					placeholder="E-mail"
-				/>
-				{/* <div className="login__wrapper-pass"> */}
-				<label className="login__wrapper-pass">
-					<Input
-						onChange={handlerChangePassword}
-						value={password}
-						customClass="login__input login__input__password"
-						type={visible}
-						placeholder="Пароль"
-					/>
-					<Eye customClass="login__eye" />
-				</label>
+    return (
+        <section className="login">
+            <h3>Вход в аккаунт</h3>
+            <form className="login__form">
+                <div className="login__wrapper">
+                    <label className="login__label">
+                        <Input
+                            onChange={handlerChangeEmail}
+                            value={email}
+                            customClass={`login__input ${errorClassEmail}`}
+                            type={'email'}
+                            placeholder="E-mail"
+                        />
+                        {validEmail !== 'ok' ? (
+                            <span className="login__error">{validEmail}</span>
+                        ) : null}
+                    </label>
 
-				{/* </div> */}
+                    <label className="login__label">
+                        <Input
+                            onChange={handlerChangePassword}
+                            value={password}
+                            customClass={`login__input ${errorClassPassword}`}
+                            type={visible}
+                            placeholder="Пароль"
+                        />
+                        <Eye customClass="login__eye" />
+                        {validPassword !== 'ok' ? (
+                            <span className="login__error">
+                                {validPassword}
+                            </span>
+                        ) : null}
+                    </label>
+                </div>
 
-				<Button text={'Войти'} />
-			</form>
-		</section>
-	)
+                <Button onClick={handlerSubmit} text={'Войти'} />
+            </form>
+        </section>
+    )
 }
 
 export const Component = Login
