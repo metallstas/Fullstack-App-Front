@@ -1,0 +1,18 @@
+@use '../colors.scss' as *;
+
+.custom-link {
+    text-decoration: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 4px;
+    color: $main-white;
+    background-color: $main-blue;
+    border: 1px solid $main-blue;
+    cursor: pointer;
+    transition: all 0.2s linear;
+}
+
+.custom-link:hover {
+    background-color: $main-blueDark;
+}

@@ -2,7 +2,7 @@
 
 .header {
     width: 100%;
-    padding: 10px;
+    padding: 18px 0;
     border-bottom: 2px solid rgba(209, 209, 209, 0.8);
     background-color: $main-white;
 
@@ -13,13 +13,35 @@
         max-width: 1200px;
         margin: 0 auto;
     }
-    h1 {
+    &__home {
         font-size: 20px;
         padding: 5px 10px;
         color: white;
         border-radius: 4px;
         background-color: black;
+        border: none;
+        &:hover {
+            background-color: rgb(49, 49, 49);
+        }
     }
+
+    &__logout {
+        background-color: rgb(213 35 35);
+        color: black;
+        border: none;
+        &:hover {
+            background-color: rgb(172, 29, 29);
+        }
+    }
+
+    &__login {
+        background-color: $main-white;
+        color: $main-blue;
+        &:hover {
+            background-color: rgb(229, 229, 229);
+        }
+    }
+
     .buttons-block {
         :first-child {
             margin-right: 10px;

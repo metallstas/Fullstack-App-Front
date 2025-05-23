@@ -1,0 +1,50 @@
+@use '../../UI/colors.scss' as *;
+
+.register {
+    border-radius: 10px;
+    background-color: $main-white;
+    text-align: center;
+    padding: 30px 15px;
+    margin-top: 50px;
+    min-height: 485px;
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+
+    form {
+        input {
+            margin-top: 25px;
+        }
+        button {
+            margin-top: 30px;
+        }
+    }
+
+    &__wrapper {
+        h3 {
+            font-size: 30px;
+        }
+    }
+
+    &__password {
+        position: relative;
+    }
+
+    &__password-visible {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-38%);
+    }
+
+    &__img {
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        margin-top: 30px;
+        border-radius: 100%;
+        padding: 15px;
+        background-color: $main-grey;
+        width: 80px;
+    }
+}

@@ -1,13 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit'
 import postsSlice from './slices/posts'
-import auth from './slices/auth'
+import authSlice from './slices/auth'
+import registerSlice from './slices/register'
 
 export const store = configureStore({
-	reducer: {
-		posts: postsSlice,
-		auth: auth,
-	},
+    reducer: {
+        posts: postsSlice,
+        auth: authSlice,
+        register: registerSlice,
+    },
 })
-auth
+
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch

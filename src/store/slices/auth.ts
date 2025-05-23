@@ -7,6 +7,7 @@ type initialState = {
     visiblePass: boolean
     validEmail: string
     validPassword: string
+    isAuth: boolean
 }
 
 const initialState: initialState = {
@@ -15,10 +16,11 @@ const initialState: initialState = {
     visiblePass: false,
     validEmail: '',
     validPassword: '',
+    isAuth: false,
 }
 
-const Auth = createSlice({
-    name: 'auth',
+const authSlice = createSlice({
+    name: 'authSlice',
     initialState,
     reducers: {
         visiblePass(state) {
@@ -35,6 +37,6 @@ const Auth = createSlice({
     },
 })
 
-export const { visiblePass, setEmail, setPassword } = Auth.actions
+export const { visiblePass, setEmail, setPassword } = authSlice.actions
 
-export default Auth.reducer
+export default authSlice.reducer

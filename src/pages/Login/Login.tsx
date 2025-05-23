@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
-import { setEmail, setPassword } from '@/store/slices/auth'
+import { setEmail, setPassword, visiblePass } from '@/store/slices/auth'
 
 import { Input } from '@/UI/Input/Input'
 import { Button } from '@/UI/Button/Button'
@@ -13,8 +13,7 @@ const Login = () => {
     const password = useAppSelector((state) => state.auth.password)
     const validEmail = useAppSelector((state) => state.auth.validEmail)
     const validPassword = useAppSelector((state) => state.auth.validPassword)
-    const visiblePass = useAppSelector((state) => state.auth.visiblePass)
-    const visible = visiblePass ? 'text' : 'password'
+    const visible = useAppSelector((state) => state.auth.visiblePass)
     const errorClassEmail =
         validEmail !== 'ok' && validEmail !== '' ? 'error' : ''
     const errorClassPassword =
@@ -32,6 +31,10 @@ const Login = () => {
     const handlerSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
         console.log('submit')
+    }
+
+    const handlerVisible = () => {
+        dispatch(visiblePass())
     }
 
     return (
@@ -57,10 +60,14 @@ const Login = () => {
                             onChange={handlerChangePassword}
                             value={password}
                             customClass={`login__input ${errorClassPassword}`}
-                            type={visible}
+                            type={visible ? 'text' : 'password'}
                             placeholder="Пароль"
                         />
-                        <Eye customClass="login__eye" />
+                        <Eye
+                            visible={visible}
+                            customClass="login__eye"
+                            onClick={handlerVisible}
+                        />
                         {validPassword !== 'ok' ? (
                             <span className="login__error">
                                 {validPassword}
