@@ -20,6 +20,11 @@
         font-weight: 600;
         color: black;
     }
+
+    &__link {
+        text-decoration: none;
+    }
+
     &__author {
         position: relative;
         img {

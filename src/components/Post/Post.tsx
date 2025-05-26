@@ -2,6 +2,8 @@ import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined'
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined'
 import './post.scss'
 import { FC } from 'react'
+import { href, Link } from 'react-router'
+import { ROUTES } from '@/routes/routes'
 
 type PostProps = {
     isFullPost?: boolean
@@ -10,11 +12,13 @@ type PostProps = {
 export const Post: FC<PostProps> = ({ isFullPost }) => {
     return (
         <article className="post">
-            <img
-                className="post__img"
-                src="https://www.socialpilot.co/wp-content/uploads/2024/12/Bluesky-image-sizes-complete.webp"
-                alt="img post"
-            />
+            <Link to={href(ROUTES.POST, { postId: '1' })}>
+                <img
+                    className="post__img"
+                    src="https://www.socialpilot.co/wp-content/uploads/2024/12/Bluesky-image-sizes-complete.webp"
+                    alt="img post"
+                />
+            </Link>
             <div className="post__info">
                 <div className="post__author">
                     <img
@@ -26,7 +30,12 @@ export const Post: FC<PostProps> = ({ isFullPost }) => {
                         <p>12 июня 2023г.</p>
                     </div>
                 </div>
-                <p className="post__title">Roast the code</p>
+                <Link
+                    className="post__link"
+                    to={href(ROUTES.POST, { postId: '1' })}
+                >
+                    <p className="post__title">Roast the code</p>
+                </Link>
                 {isFullPost ? (
                     <p>
                         Lorem ipsum dolor sit amet, consectetur adipisicing
