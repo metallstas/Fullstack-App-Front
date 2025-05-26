@@ -1,12 +1,28 @@
 import { Post } from '@/components/Post/Post'
 import './posts.scss'
+import { useAppSelector } from '@/store/hooks'
 
 export const PostList = () => {
+    const posts = useAppSelector((state) => state.posts.posts)
+
     return (
         <section className="posts">
-            <Post />
-            <Post />
-            <Post />
+            {posts.map((post) => {
+                return (
+                    <Post
+                        key={post._id}
+                        id={post._id}
+                        title={post.title}
+                        text={post.text}
+                        tags={post.tags}
+                        viewCount={post.viewsCount}
+                        imageAuthor={post.author.avatarUrl}
+                        imagePost={post.imageUrl}
+                        createdAt={post.createdAt}
+                        authorName={post.author.fullName}
+                    />
+                )
+            })}
         </section>
     )
 }

@@ -17,6 +17,7 @@ export type Post = {
     tags: Tags
     text: string
     title: string
+    author: Author
     updatedAt: string
     viewsCount: number
     __v: number

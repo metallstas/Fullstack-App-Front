@@ -12,11 +12,13 @@ export const fetchPosts = createAsyncThunk<Post[], void>(
 
 type InitialState = {
     posts: Post[]
+    status: string
     sort: string
 }
 
 const initialState: InitialState = {
     posts: [],
+    status: 'idle',
     sort: 'new',
 }
 
@@ -29,7 +31,14 @@ const postsSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
+        builder.addCase(fetchPosts.pending, (state) => {
+            state.status = 'loading'
+        })
+        builder.addCase(fetchPosts.rejected, (state) => {
+            state.status = 'error'
+        })
         builder.addCase(fetchPosts.fulfilled, (state, action) => {
+            state.status = 'idle'
             state.posts = action.payload
         })
     },

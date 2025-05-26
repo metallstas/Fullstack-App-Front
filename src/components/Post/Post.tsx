@@ -4,54 +4,70 @@ import './post.scss'
 import { FC } from 'react'
 import { href, Link } from 'react-router'
 import { ROUTES } from '@/routes/routes'
+import defailtImg from '@/UI/images/default-img.png'
+import defailtUserImg from '@/UI/images/user.png'
 
 type PostProps = {
     isFullPost?: boolean
+    id: string
+    title: string
+    text: string
+    tags: string[]
+    authorName: string
+    viewCount: number
+    createdAt: string
+    imagePost: string | undefined
+    imageAuthor: string
 }
 
-export const Post: FC<PostProps> = ({ isFullPost }) => {
+export const Post: FC<PostProps> = ({
+    isFullPost,
+    id,
+    title,
+    text,
+    tags,
+    viewCount,
+    createdAt,
+    authorName,
+    imageAuthor,
+    imagePost,
+}) => {
     return (
         <article className="post">
-            <Link to={href(ROUTES.POST, { postId: '1' })}>
+            <Link to={href(ROUTES.POST, { postId: id })}>
                 <img
                     className="post__img"
-                    src="https://www.socialpilot.co/wp-content/uploads/2024/12/Bluesky-image-sizes-complete.webp"
+                    src={imagePost ? imagePost : defailtImg}
                     alt="img post"
                 />
             </Link>
             <div className="post__info">
                 <div className="post__author">
                     <img
-                        src="https://ps.w.org/wp-post-author/assets/icon-256x256.png?rev=2985820"
+                        src={imageAuthor ? imageAuthor : defailtUserImg}
                         alt="img author"
                     />
                     <div className="author__info">
-                        <h4>Joel</h4>
-                        <p>12 июня 2023г.</p>
+                        <h4>{authorName}</h4>
+                        <p>{createdAt}</p>
                     </div>
                 </div>
                 <Link
                     className="post__link"
-                    to={href(ROUTES.POST, { postId: '1' })}
+                    to={href(ROUTES.POST, { postId: id })}
                 >
-                    <p className="post__title">Roast the code</p>
+                    <p className="post__title">{title}</p>
                 </Link>
-                {isFullPost ? (
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit. Eveniet accusantium blanditiis ducimus eos,
-                        numquam fugit corrupti modi provident inventore cum quos
-                        nulla rerum voluptates error. Dicta ipsum voluptatibus
-                        dolores vero?
-                    </p>
-                ) : null}
-                <p className="post__tags">#react #fun #typescript</p>
+                {isFullPost ? <p>{text}</p> : null}
+                <p className="post__tags">{tags.map((tag) => `#${tag} `)}</p>
                 <div className="post__views-block">
                     <div className="post__views-block__views">
                         <span>
                             <RemoveRedEyeOutlinedIcon />
                         </span>{' '}
-                        <span className="post__views-block__count">150</span>
+                        <span className="post__views-block__count">
+                            {viewCount}
+                        </span>
                     </div>
                     <div className="post__views-block__views">
                         <ChatBubbleOutlineOutlinedIcon />{' '}
