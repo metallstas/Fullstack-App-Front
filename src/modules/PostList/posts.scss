@@ -1,6 +1,8 @@
 .posts {
-    width: 100%;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: repeat(3, auto);
+    row-gap: 35px;
     .post {
-        margin-bottom: 30px;
     }
 }
