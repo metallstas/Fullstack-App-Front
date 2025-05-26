@@ -6,7 +6,7 @@ export const WriteComment = () => {
             <img src="" alt="photo athor" />
             <div>
                 <input />
-                <Button text={'Отправить'} />
+                <Button onClick={() => {}} text={'Отправить'} />
             </div>
         </section>
     )

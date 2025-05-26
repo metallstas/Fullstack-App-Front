@@ -1,8 +1,7 @@
 @use '../../UI/colors.scss' as *;
 
 .footer {
-    flex: 1 1 auto;
-    padding: 20px 0;
+    padding: 30px 0;
     border-top: 2px solid rgba(209, 209, 209, 0.8);
     background-color: $main-white;
 
@@ -38,12 +37,27 @@
             border-radius: 3px;
             cursor: pointer;
             margin-right: 15px;
+            transition: all 0.3s;
+
             &:hover {
                 scale: 1.2;
             }
             &:last-child {
                 margin-right: 0;
             }
+        }
+    }
+
+    &__company {
+        p {
+            font-size: 24px;
+        }
+        ul {
+            list-style: none;
+        }
+        li {
+            margin-top: 5px;
+            font-size: 18px;
         }
     }
 }

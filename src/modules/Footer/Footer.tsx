@@ -23,7 +23,7 @@ export const Footer = () => {
                         </li>
                     </ul>
                 </div>
-                <div>
+                <div className="footer__company">
                     <p>Company</p>
                     <ul>
                         <li>BuzzCraze Marketing</li>
