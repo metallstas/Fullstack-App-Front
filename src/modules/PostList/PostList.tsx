@@ -1,6 +1,7 @@
 import { Post } from '@/components/Post/Post'
 import './posts.scss'
 import { useAppSelector } from '@/store/hooks'
+import { PostListSkeleton } from '@/UI/skeletons/PostListSkeleton/PostListSkeleton'
 
 export const PostList = () => {
     const posts = useAppSelector((state) => state.posts.posts)
@@ -9,18 +10,21 @@ export const PostList = () => {
         <section className="posts">
             {posts.map((post) => {
                 return (
-                    <Post
-                        key={post._id}
-                        id={post._id}
-                        title={post.title}
-                        text={post.text}
-                        tags={post.tags}
-                        viewCount={post.viewsCount}
-                        imageAuthor={post.author.avatarUrl}
-                        imagePost={post.imageUrl}
-                        createdAt={post.createdAt}
-                        authorName={post.author.fullName}
-                    />
+                    <>
+                        <Post
+                            key={post._id}
+                            id={post._id}
+                            title={post.title}
+                            text={post.text}
+                            tags={post.tags}
+                            viewCount={post.viewsCount}
+                            imageAuthor={post.author.avatarUrl}
+                            imagePost={post.imageUrl}
+                            createdAt={post.createdAt}
+                            authorName={post.author.fullName}
+                        />
+                        <PostListSkeleton />
+                    </>
                 )
             })}
         </section>

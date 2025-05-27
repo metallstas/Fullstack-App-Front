@@ -5,6 +5,10 @@
         display: flex;
         width: 100%;
     }
+
+    &__error {
+        text-align: center;
+    }
 }
 
 .info {
