@@ -7,17 +7,31 @@
 
     width: 800px;
     &__post {
+        animation: fade 1s linear infinite alternate;
+        --color: rgb(213, 213, 213);
         background-repeat: no-repeat;
         border-radius: 10px 10px 0 0;
         height: 100%;
         background-image: linear-gradient(
                 to right,
-                rgb(223, 223, 223),
+                var(--color) 0%,
                 transparent 100%
             ),
-            radial-gradient(circle 25px, red 100%, transparent 0%),
-            linear-gradient(to right, red 100%, transparent 0%);
-        background-size: 100% 450px, 55px 55px, 100px 15px;
-        background-position: 0 0, 20px 473px, 70px 471px;
+            radial-gradient(circle 25px, var(--color) 100%, transparent 100%),
+            linear-gradient(to right, var(--color) 0%, transparent 100%),
+            linear-gradient(to right, var(--color) 0%, transparent 100%),
+            linear-gradient(to right, var(--color) 0%, transparent 100%);
+        background-size: 100% 450px, 55px 55px, 100px 15px, 200px 15px,
+            250px 25px;
+        background-position: 0 0, 20px 473px, 86px 477px, 86px 497px, 86px 545px;
+    }
+}
+
+@keyframes fade {
+    from {
+        opacity: 0.4;
+    }
+    to {
+        opacity: 1;
     }
 }

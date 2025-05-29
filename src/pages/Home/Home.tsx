@@ -10,6 +10,7 @@ import { SortPost } from '@/modules/SortPost/SortPost'
 
 import './home.scss'
 import { PostListSkeleton } from '@/UI/skeletons/PostListSkeleton/PostListSkeleton'
+import { fetchTags } from '@/store/slices/tags'
 
 const Home = () => {
     const dispatch = useAppDispatch()
@@ -17,17 +18,18 @@ const Home = () => {
     const error = useAppSelector((state) => state.posts.error)
     useEffect(() => {
         dispatch(fetchPosts())
+        dispatch(fetchTags())
     }, [])
+
     // const params = useParams<PathParams[typeof ROUTES.POST]>()
     console.log(postStatus)
 
-    if (postStatus === 'loading') {
-        return <h2 className="home__error">Loading...</h2>
-    }
+    // if (postStatus === 'loading') {
+    //     return <h2 className="home__error">Loading...</h2>
+    // }
 
     if (error) {
-        // return <h2 className="home__error">{error}</h2>
-        return <PostListSkeleton />
+        return <h2 className="home__error">{error}</h2>
     }
     return (
         <div className="home">
@@ -36,15 +38,27 @@ const Home = () => {
             </Link> */}
             <SortPost />
             <div className="home__posts">
-                <PostList />
+                {postStatus === 'loading' ? <SkeletonPosts /> : <PostList />}
+
                 <aside className="info">
                     <Tags />
                     <Comments />
                 </aside>
             </div>
-            <PostListSkeleton />
         </div>
     )
 }
 
 export const Component = Home
+
+const SkeletonPosts = () => {
+    return (
+        <div className="home__skeleton-wrap">
+            {Array(4)
+                .fill(undefined)
+                .map((_, i) => (
+                    <PostListSkeleton key={i} />
+                ))}
+        </div>
+    )
+}

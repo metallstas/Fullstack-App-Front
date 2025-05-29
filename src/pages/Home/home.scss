@@ -9,6 +9,10 @@
     &__error {
         text-align: center;
     }
+    &__skeleton-wrap {
+        display: flex;
+        flex-direction: column;
+    }
 }
 
 .info {

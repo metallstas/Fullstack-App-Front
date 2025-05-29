@@ -1,10 +1,10 @@
+import { FC } from 'react'
 import './postListSkeleton.scss'
 
-export const PostListSkeleton = () => {
+export const PostListSkeleton: FC = () => {
     return (
         <section className="skeleton">
             <div className="skeleton__post"></div>
-            <div className="skeleton__info"> </div>
         </section>
     )
 }
