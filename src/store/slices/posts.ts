@@ -14,12 +14,14 @@ export const fetchNewPost = createAsyncThunk<
             Authorization:
                 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2VmYjI0NTZhZjJjZjYzMjMxZmI5MzMiLCJpYXQiOjE3NDg5MzcyNDcsImV4cCI6MTc1MTUyOTI0N30.d8tVtM4rpU-rEuL5j24kZ_2cPpfCXzMMlZX0aJlY1qU',
         },
-
         body: JSON.stringify(post),
     })
 
+    if (!response.ok) {
+        return rejectWithValue(response.statusText)
+    }
+
     const res = await response.json()
-    console.log(res)
 })
 
 export const fetchPosts = createAsyncThunk<

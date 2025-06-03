@@ -1,0 +1,20 @@
+@use '../../colors.scss' as *;
+
+.tag-skeleton {
+    animation: fade 0.7s linear infinite alternate;
+    background-repeat: no-repeat;
+    height: 20px;
+    background-image: linear-gradient(to right, $skeleton 0%, transparent 100%),
+        linear-gradient(to right, $skeleton 0%, transparent 100%);
+    background-size: 25px 100%, 70% 100%;
+    background-position: 0px 0px, 30px 0px;
+}
+
+@keyframes fade {
+    from {
+        opacity: 0.4;
+    }
+    to {
+        opacity: 1;
+    }
+}

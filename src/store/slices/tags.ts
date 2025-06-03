@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export const fetchTags = createAsyncThunk<
     string[],
@@ -16,10 +16,12 @@ export const fetchTags = createAsyncThunk<
 
 type InitialState = {
     tags: string[]
+    status: string
 }
 
 const initialState: InitialState = {
     tags: [],
+    status: 'loading',
 }
 
 const tagsSlice = createSlice({
@@ -27,8 +29,18 @@ const tagsSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(fetchTags.fulfilled, (state, action) => {
-            state.tags = action.payload
+        builder.addCase(fetchTags.pending, (state) => {
+            state.status = 'loading'
+        })
+        builder.addCase(
+            fetchTags.fulfilled,
+            (state, action: PayloadAction<string[]>) => {
+                state.tags = action.payload
+                state.status = 'idle'
+            }
+        )
+        builder.addCase(fetchTags.rejected, (state) => {
+            state.status = 'error'
         })
     },
 })
