@@ -21,7 +21,7 @@ export const fetchNewPost = createAsyncThunk<
         return rejectWithValue(response.statusText)
     }
 
-    const res = await response.json()
+    return response.json()
 })
 
 export const fetchPosts = createAsyncThunk<
@@ -43,6 +43,7 @@ type InitialState = {
     status: string
     sort: string
     error: undefined | string
+    fullPost: Post | undefined
 }
 
 const initialState: InitialState = {
@@ -50,6 +51,7 @@ const initialState: InitialState = {
     error: '',
     status: 'idle',
     sort: 'new',
+    fullPost: undefined,
 }
 
 const postsSlice = createSlice({
@@ -58,6 +60,9 @@ const postsSlice = createSlice({
     reducers: {
         activeSort(state, action: PayloadAction<string>) {
             state.sort = action.payload
+        },
+        postById(state, action: PayloadAction<string>) {
+            state.fullPost = state.posts.find((el) => el._id === action.payload)
         },
     },
     extraReducers: (builder) => {
@@ -81,6 +86,6 @@ const postsSlice = createSlice({
     },
 })
 
-export const { activeSort } = postsSlice.actions
+export const { activeSort, postById } = postsSlice.actions
 
 export default postsSlice.reducer

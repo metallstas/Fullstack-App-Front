@@ -1,8 +1,8 @@
-// import { PathParams, ROUTES } from '@/routes/routes'
-// import { href, Link, useParams } from 'react-router'
+import { PathParams, ROUTES } from '@/routes/routes'
+import { href, Link, useParams } from 'react-router'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { useEffect } from 'react'
-import { fetchNewPost, fetchPosts } from '@/store/slices/posts'
+import { fetchPosts } from '@/store/slices/posts'
 import { Tags } from '@/modules/Tags/Tags'
 import { PostList } from '@/modules/PostList/PostList'
 import { Comments } from '@/modules/Comments/Comments'
@@ -28,7 +28,7 @@ const Home = () => {
         dispatch(fetchTags())
     }, [])
 
-    // const params = useParams<PathParams[typeof ROUTES.POST]>()
+    const params = useParams<PathParams[typeof ROUTES.POST]>()
     console.log(postStatus)
 
     // if (postStatus === 'loading') {
@@ -40,9 +40,6 @@ const Home = () => {
     }
     return (
         <div className="home">
-            {/* <Link to={href(ROUTES.POST, { postId: '1' })}>
-                Go to Post {params.postId}
-            </Link> */}
             <SortPost />
             <div className="home__posts">
                 {postStatus === 'loading' ? <SkeletonPosts /> : <PostList />}
