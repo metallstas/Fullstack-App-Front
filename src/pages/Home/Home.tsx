@@ -2,7 +2,7 @@
 // import { href, Link, useParams } from 'react-router'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { useEffect } from 'react'
-import { fetchPosts } from '@/store/slices/posts'
+import { fetchNewPost, fetchPosts } from '@/store/slices/posts'
 import { Tags } from '@/modules/Tags/Tags'
 import { PostList } from '@/modules/PostList/PostList'
 import { Comments } from '@/modules/Comments/Comments'
@@ -17,6 +17,13 @@ const Home = () => {
     const postStatus = useAppSelector((state) => state.posts.status)
     const error = useAppSelector((state) => state.posts.error)
     useEffect(() => {
+        // dispatch(
+        //     fetchNewPost({
+        //         title: 'new Title',
+        //         text: 'some text new post',
+        //         tags: ['programming', 'react', 'redux', 'learn'],
+        //     })
+        // )
         dispatch(fetchPosts())
         dispatch(fetchTags())
     }, [])

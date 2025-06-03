@@ -1,6 +1,27 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Post } from '../../types'
 
+export const fetchNewPost = createAsyncThunk<
+    any,
+    { title: string; text: string; tags: any },
+    { rejectValue: string }
+>('posts/newPost', async (post, { rejectWithValue }) => {
+    const response = await fetch('http://localhost:4444/posts', {
+        method: 'POST',
+
+        headers: {
+            'Content-type': 'application/json',
+            Authorization:
+                'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2VmYjI0NTZhZjJjZjYzMjMxZmI5MzMiLCJpYXQiOjE3NDg5MzcyNDcsImV4cCI6MTc1MTUyOTI0N30.d8tVtM4rpU-rEuL5j24kZ_2cPpfCXzMMlZX0aJlY1qU',
+        },
+
+        body: JSON.stringify(post),
+    })
+
+    const res = await response.json()
+    console.log(res)
+})
+
 export const fetchPosts = createAsyncThunk<
     Post[],
     void,
