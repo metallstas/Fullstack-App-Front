@@ -1,35 +1,42 @@
 import { Post } from '@/components/Post/Post'
 import { PathParams, ROUTES } from '@/routes/routes'
 import { useParams } from 'react-router'
-
-import './fullpost.scss'
 import { Comments } from '@/modules/Comments/Comments'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
-import { useEffect } from 'react'
-import { postById } from '@/store/slices/posts'
+import { FC, useEffect } from 'react'
+import { fetchPostById } from '@/store/slices/posts'
 
-const FullPost = () => {
-    const dispatch = useAppDispatch()
+import './fullpost.scss'
+import { PostSkeleton } from '@/UI/skeletons/PostSkeleton/PostSkeleton'
+
+const FullPost: FC = () => {
+    const postById = useAppSelector((state) => state.posts.postById)
+    const statusPost = useAppSelector((state) => state.posts.statusFullPost)
     const params = useParams<PathParams[typeof ROUTES.POST]>()
-    const post = useAppSelector((state) => state.posts.fullPost)
-    console.log(post)
+    const dispatch = useAppDispatch()
+
     useEffect(() => {
-        dispatch(postById(`${params.postId}`))
+        const data = dispatch(fetchPostById(params.postId))
+        console.log(data)
     }, [])
+
+    if (statusPost === 'loading') {
+        return <PostSkeleton />
+    }
 
     return (
         <section className="fullpost">
-            {post ? (
+            {postById ? (
                 <Post
                     isFullPost={true}
-                    title={post?.title}
-                    text={post.text}
-                    tags={post.tags}
-                    id={post._id}
-                    authorName={post.author.fullName}
-                    viewCount={post.viewsCount}
-                    createdAt={post.createdAt}
-                    imagePost={post.imageUrl}
+                    title={postById?.title}
+                    text={postById.text}
+                    tags={postById.tags}
+                    id={postById._id}
+                    authorName={postById.author.fullName}
+                    viewCount={postById.viewsCount}
+                    createdAt={postById.createdAt}
+                    imagePost={postById.imageUrl}
                     imageAuthor={''}
                 />
             ) : null}

@@ -1,7 +1,7 @@
 import { FC } from 'react'
-import './postListSkeleton.scss'
+import './PostSkeleton.scss'
 
-export const PostListSkeleton: FC = () => {
+export const PostSkeleton: FC = () => {
     return (
         <section className="skeleton">
             <div className="skeleton__post"></div>

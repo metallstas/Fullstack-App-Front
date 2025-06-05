@@ -1,0 +1,27 @@
+@use '../../colors.scss' as *;
+
+.comment-skeleton {
+    animation: fade 0.7s linear infinite alternate;
+    background-repeat: no-repeat;
+    height: 111px;
+    background-image: radial-gradient(
+            circle 22px,
+            $skeleton 100%,
+            transparent 100%
+        ),
+        linear-gradient(to right, $skeleton 0%, transparent 100%),
+        linear-gradient(to right, $skeleton 0%, transparent 100%),
+        linear-gradient(to right, $skeleton 0%, transparent 100%),
+        linear-gradient(to right, $skeleton 0%, transparent 100%);
+    background-size: 44px 44px, 70px 20px, 100% 14px, 100% 14px, 100% 14px;
+    background-position: 0px 0px, 55px 5px, 55px 35px, 55px 53px, 55px 70px;
+}
+
+@keyframes fade {
+    from {
+        opacity: 0.4;
+    }
+    to {
+        opacity: 1;
+    }
+}

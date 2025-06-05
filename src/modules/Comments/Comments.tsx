@@ -1,4 +1,6 @@
 import { Comment } from '@/components/Comment/Comment'
+// import { CommentSkeleton } from '@/UI/skeletons/CommentSkeleton/CommentSkeleton'
+
 import './comments.scss'
 
 export const Comments = () => {
@@ -8,6 +10,7 @@ export const Comments = () => {
             <Comment />
             <Comment />
             <Comment />
+            {/* <CommentSkeleton /> */}
         </section>
     )
 }

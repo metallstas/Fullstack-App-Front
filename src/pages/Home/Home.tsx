@@ -1,5 +1,5 @@
 import { PathParams, ROUTES } from '@/routes/routes'
-import { href, Link, useParams } from 'react-router'
+import { useParams } from 'react-router'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { useEffect } from 'react'
 import { fetchPosts } from '@/store/slices/posts'
@@ -9,7 +9,7 @@ import { Comments } from '@/modules/Comments/Comments'
 import { SortPost } from '@/modules/SortPost/SortPost'
 
 import './home.scss'
-import { PostListSkeleton } from '@/UI/skeletons/PostListSkeleton/PostListSkeleton'
+import { PostSkeleton } from '@/UI/skeletons/PostSkeleton/PostSkeleton'
 import { fetchTags } from '@/store/slices/tags'
 
 const Home = () => {
@@ -61,7 +61,7 @@ const SkeletonPosts = () => {
             {Array(4)
                 .fill(undefined)
                 .map((_, i) => (
-                    <PostListSkeleton key={i} />
+                    <PostSkeleton key={i} />
                 ))}
         </div>
     )
