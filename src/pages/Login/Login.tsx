@@ -1,40 +1,65 @@
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
-import { setEmail, setPassword, visiblePass } from '@/store/slices/auth'
+import { useState } from 'react'
 
 import { Input } from '@/UI/Input/Input'
 import { Button } from '@/UI/Button/Button'
 import { Eye } from '@/components/Eye/Eye'
 
 import './login.scss'
+import { checkValidEmail, checkValidPass } from '@/validation'
+import { fetchUserData } from '@/store/slices/auth'
 
 const Login = () => {
     const dispatch = useAppDispatch()
-    const email = useAppSelector((state) => state.auth.email)
-    const password = useAppSelector((state) => state.auth.password)
-    const validEmail = useAppSelector((state) => state.auth.validEmail)
-    const validPassword = useAppSelector((state) => state.auth.validPassword)
-    const visible = useAppSelector((state) => state.auth.visiblePass)
+    const error = useAppSelector((state) => state.auth.error)
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [visiblePass, setVisiblePass] = useState(false)
+    const [validEmail, setValidEmail] = useState<string>('')
+    const [validPassword, setValidPassword] = useState<string>('')
+    const [isSubmit, setIsSubmit] = useState(false)
+
     const errorClassEmail =
         validEmail !== 'ok' && validEmail !== '' ? 'error' : ''
     const errorClassPassword =
         validPassword !== 'ok' && validPassword !== '' ? 'error' : ''
 
     const handlerChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const emailNew = e.target.value
-        dispatch(setEmail({ email: emailNew }))
+        const email = e.currentTarget.value
+        setEmail(email)
+        if (isSubmit) {
+            setValidEmail(checkValidEmail(email))
+        }
     }
 
     const handlerChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(setPassword({ password: e.target.value }))
+        const password = e.currentTarget.value
+        setPassword(password)
+        if (isSubmit) {
+            setValidPassword(checkValidPass(password))
+        }
     }
 
     const handlerSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
+        setIsSubmit(true)
+        if (
+            checkValidEmail(email) === 'ok' &&
+            checkValidPass(password) === 'ok'
+        ) {
+            dispatch(fetchUserData({ email, password }))
+            return
+        }
+
+        setValidEmail(checkValidEmail(email))
+        setValidPassword(checkValidPass(password))
+
+        checkValidPass(password)
         console.log('submit')
     }
 
     const handlerVisible = () => {
-        dispatch(visiblePass())
+        setVisiblePass((prev) => !prev)
     }
 
     return (
@@ -60,11 +85,11 @@ const Login = () => {
                             onChange={handlerChangePassword}
                             value={password}
                             customClass={`login__input ${errorClassPassword}`}
-                            type={visible ? 'text' : 'password'}
+                            type={visiblePass ? 'text' : 'password'}
                             placeholder="Пароль"
                         />
                         <Eye
-                            visible={visible}
+                            visible={visiblePass}
                             customClass="login__eye"
                             onClick={handlerVisible}
                         />
@@ -75,6 +100,7 @@ const Login = () => {
                         ) : null}
                     </label>
                 </div>
+                <div className="login__server-error">{error}</div>
 
                 <Button onClick={handlerSubmit} text={'Войти'} />
             </form>

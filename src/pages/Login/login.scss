@@ -47,6 +47,12 @@
         width: 100%;
     }
 
+    &__server-error {
+        color: red;
+        font-weight: 500;
+        font-size: 14px;
+    }
+
     &__input {
         &__email {
             margin-top: 0;

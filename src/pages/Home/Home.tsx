@@ -28,8 +28,8 @@ const Home = () => {
         dispatch(fetchTags())
     }, [])
 
-    const params = useParams<PathParams[typeof ROUTES.POST]>()
-    console.log(postStatus)
+    // const params = useParams<PathParams[typeof ROUTES.POST]>()
+    // console.log(postStatus)
 
     // if (postStatus === 'loading') {
     //     return <h2 className="home__error">Loading...</h2>
