@@ -18,5 +18,8 @@ export const checkValidPass: (password: string) => string = (password) => {
     if (password === '') {
         return 'Не может быть пустым'
     }
+    if (password.length < 5) {
+        return 'Минимум 5 символов'
+    }
     return 'ok'
 }

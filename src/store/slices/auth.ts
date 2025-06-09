@@ -34,6 +34,7 @@ export const fetchUserData = createAsyncThunk<
 
     if (!response.ok) {
         const resp = await response.json()
+        console.log(resp)
         return rejectWithValue(resp.message)
     }
 
