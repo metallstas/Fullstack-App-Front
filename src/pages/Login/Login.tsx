@@ -8,10 +8,13 @@ import { Eye } from '@/components/Eye/Eye'
 import './login.scss'
 import { checkValidEmail, checkValidPass } from '@/validation'
 import { fetchUserData } from '@/store/slices/auth'
+import { Navigate } from 'react-router'
+import { ROUTES } from '@/routes/routes'
 
 const Login = () => {
     const dispatch = useAppDispatch()
     const error = useAppSelector((state) => state.auth.error)
+    const isAuth = useAppSelector((state) => state.auth.isAuth)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [visiblePass, setVisiblePass] = useState(false)
@@ -60,6 +63,10 @@ const Login = () => {
 
     const handlerVisible = () => {
         setVisiblePass((prev) => !prev)
+    }
+
+    if (isAuth) {
+        return <Navigate to={ROUTES.HOME} />
     }
 
     return (

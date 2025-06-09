@@ -5,7 +5,12 @@ export const fetchTags = createAsyncThunk<
     void,
     { rejectValue: string }
 >('tags/fetchTags', async (_, { rejectWithValue }) => {
-    const response = await fetch('http://localhost:4444/tags')
+    const response = await fetch('http://localhost:4444/tags', {
+        method: 'GET',
+        headers: {
+            Authorization: `Bearer ${window.localStorage.getItem('token')}`,
+        },
+    })
 
     if (!response.ok) {
         return rejectWithValue(response.statusText)

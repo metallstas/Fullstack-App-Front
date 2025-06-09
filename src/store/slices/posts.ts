@@ -11,8 +11,7 @@ export const fetchNewPost = createAsyncThunk<
 
         headers: {
             'Content-type': 'application/json',
-            Authorization:
-                'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2VmYjI0NTZhZjJjZjYzMjMxZmI5MzMiLCJpYXQiOjE3NDg5MzcyNDcsImV4cCI6MTc1MTUyOTI0N30.d8tVtM4rpU-rEuL5j24kZ_2cPpfCXzMMlZX0aJlY1qU',
+            Authorization: `Bearer ${window.localStorage.getItem('token')}`,
         },
         body: JSON.stringify(post),
     })
@@ -29,7 +28,12 @@ export const fetchPosts = createAsyncThunk<
     void,
     { rejectValue: string }
 >('posts/fetchPosts', async (_, { rejectWithValue }) => {
-    const response = await fetch('http://localhost:4444/posts')
+    const response = await fetch('http://localhost:4444/posts', {
+        method: 'GET',
+        headers: {
+            Authorization: `Bearer ${window.localStorage.getItem('token')}`,
+        },
+    })
 
     if (!response.ok) {
         return rejectWithValue(response.statusText)
@@ -43,7 +47,12 @@ export const fetchPostById = createAsyncThunk<
     string | undefined,
     { rejectValue: string }
 >('posts/fethcPostById', async (id, { rejectWithValue }) => {
-    const response = await fetch(`http://localhost:4444/posts/${id}`)
+    const response = await fetch(`http://localhost:4444/posts/${id}`, {
+        method: 'GET',
+        headers: {
+            Authorization: `Bearer ${window.localStorage.getItem('token')}`,
+        },
+    })
 
     if (!response.ok) {
         console.log('response', response)

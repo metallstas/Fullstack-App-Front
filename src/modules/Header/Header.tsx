@@ -1,11 +1,16 @@
 import { ROUTES } from '@/routes/routes'
-import { useAppSelector } from '@/store/hooks'
+import { useAppDispatch, useAppSelector } from '@/store/hooks'
+import { logout } from '@/store/slices/auth'
 import { CustomLink } from '@/UI/Link/CustomLink'
 
 import './header.scss'
 
 export const Header = () => {
     const isAuth = useAppSelector((state) => state.auth.isAuth)
+    const dispatch = useAppDispatch()
+    const handlerLogout = () => {
+        if (window.confirm('Вы действительно хотите выйти?')) dispatch(logout())
+    }
     return (
         <header className="header">
             <div className="header__container">
@@ -23,7 +28,8 @@ export const Header = () => {
                                 customClass="header__post"
                             />
                             <CustomLink
-                                to={ROUTES.REGISTER}
+                                onClick={handlerLogout}
+                                to={ROUTES.HOME}
                                 text={'Выйти'}
                                 customClass="header__logout"
                             />

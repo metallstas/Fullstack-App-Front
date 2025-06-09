@@ -1,7 +1,14 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+
 type TData = {
+    avatarUrl: string
+    createdAt: string
     email: string
-    password: string
+    fullName: string
+    token: string
+    updatedAt: string
+    __v: number
+    _id: string
 }
 
 type initialState = {
@@ -19,8 +26,8 @@ const initialState: initialState = {
 }
 
 export const fetchUserData = createAsyncThunk<
-    any,
     TData,
+    { email: string; password: string },
     { rejectValue: string }
 >('authSlice/fetchUserData', async (dataUser, { rejectWithValue }) => {
     console.log(dataUser)
@@ -28,13 +35,32 @@ export const fetchUserData = createAsyncThunk<
         method: 'POST',
         headers: {
             'Content-type': 'application/json',
+            Authorization: `Bearer ${window.localStorage.getItem('token')}`,
         },
         body: JSON.stringify(dataUser),
     })
 
     if (!response.ok) {
         const resp = await response.json()
-        console.log(resp)
+        return rejectWithValue(resp.message)
+    }
+    return response.json()
+})
+
+export const fetchAuthMe = createAsyncThunk<
+    TData,
+    void,
+    { rejectValue: string }
+>('authSlice/fetchAuthMe', async (_, { rejectWithValue }) => {
+    const response = await fetch('http://localhost:4444/auth/me', {
+        method: 'GET',
+        headers: {
+            Authorization: `Bearer ${window.localStorage.getItem('token')}`,
+        },
+    })
+
+    if (!response.ok) {
+        const resp = await response.json()
         return rejectWithValue(resp.message)
     }
 
@@ -44,7 +70,13 @@ export const fetchUserData = createAsyncThunk<
 const authSlice = createSlice({
     name: 'authSlice',
     initialState,
-    reducers: {},
+    reducers: {
+        logout(state) {
+            state.data = null
+            state.isAuth = false
+            window.localStorage.removeItem('token')
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(fetchUserData.pending, (state) => {
@@ -56,6 +88,8 @@ const authSlice = createSlice({
                     state.status = 'idle'
                     state.error = undefined
                     state.data = action.payload
+                    state.isAuth = true
+                    window.localStorage.setItem('token', action.payload.token)
                 }
             )
             .addCase(
@@ -65,9 +99,29 @@ const authSlice = createSlice({
                     state.error = action.payload
                 }
             )
+            .addCase(fetchAuthMe.pending, (state) => {
+                state.status = 'loading'
+            })
+            .addCase(
+                fetchAuthMe.fulfilled,
+                (state, action: PayloadAction<TData>) => {
+                    state.status = 'idle'
+                    state.error = undefined
+                    state.data = action.payload
+                    state.isAuth = true
+                    window.localStorage.setItem('token', action.payload.token)
+                }
+            )
+            .addCase(
+                fetchAuthMe.rejected,
+                (state, action: PayloadAction<string | undefined>) => {
+                    state.status = 'error'
+                    state.error = action.payload
+                }
+            )
     },
 })
 
-export const {} = authSlice.actions
+export const { logout } = authSlice.actions
 
 export default authSlice.reducer
