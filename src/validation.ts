@@ -27,3 +27,13 @@ export const checkValidPass: (password: string) => string = (password) => {
     }
     return 'ok'
 }
+
+export const checkValidName: (userName: string) => string = (userName) => {
+    if (userName === '') {
+        return 'Имя не может быть пустым'
+    }
+    if (userName.length < 2) {
+        return 'Имя должно содержать минимум 2 символа'
+    }
+    return 'ok'
+}

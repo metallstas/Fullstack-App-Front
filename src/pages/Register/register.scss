@@ -4,19 +4,33 @@
     border-radius: 10px;
     background-color: $main-white;
     text-align: center;
-    padding: 30px 15px;
+    padding: 30px 25px;
     min-height: 485px;
-    width: 400px;
     margin-left: auto;
     margin-right: auto;
 
     form {
-        input {
-            margin-top: 25px;
-        }
+        display: flex;
+        flex-direction: column;
+        margin-top: 15px;
         button {
-            margin-top: 30px;
+            margin-top: 60px;
         }
+    }
+
+    &__error-border {
+        outline: 2px solid red;
+        border: none;
+    }
+
+    &__error {
+        position: absolute;
+        top: 105%;
+        width: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: none;
+        font-size: 12px;
     }
 
     &__wrapper {
@@ -27,13 +41,19 @@
 
     &__password {
         position: relative;
+
+        margin-bottom: 20px;
+        &__last {
+            position: relative;
+            margin-bottom: 0;
+        }
     }
 
     &__password-visible {
         position: absolute;
         right: 15px;
         top: 50%;
-        transform: translateY(-38%);
+        transform: translateY(-40%);
     }
 
     &__img {

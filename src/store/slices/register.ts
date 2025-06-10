@@ -17,22 +17,9 @@ const initialState: InitialState = {
 const registerSlice = createSlice({
     name: 'registerSlice',
     initialState,
-    reducers: {
-        name(state, action: PayloadAction<{ name: string }>) {
-            state.name = action.payload.name
-        },
-        email(state, action: PayloadAction<{ email: string }>) {
-            state.email = action.payload.email
-        },
-        password(state, action: PayloadAction<{ password: string }>) {
-            state.password = action.payload.password
-        },
-        visible(state) {
-            state.visiblePass = !state.visiblePass
-        },
-    },
+    reducers: {},
 })
 
-export const { name, email, password, visible } = registerSlice.actions
+export const {} = registerSlice.actions
 
 export default registerSlice.reducer
