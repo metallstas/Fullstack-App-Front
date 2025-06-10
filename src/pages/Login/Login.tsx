@@ -107,7 +107,9 @@ const Login = () => {
                         ) : null}
                     </label>
                 </div>
-                <div className="login__server-error">{error}</div>
+                {isSubmit ? (
+                    <div className="login__server-error">{error}</div>
+                ) : null}
 
                 <Button onClick={handlerSubmit} text={'Войти'} />
             </form>

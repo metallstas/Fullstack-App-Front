@@ -1,5 +1,6 @@
 export const checkValidEmail: (email: string) => string = (email) => {
     const regex = /@/g
+    const dot = email.match(/\./g)
     const match = email.match(regex)
     if (email === '') {
         return 'Не может быть пустым'
@@ -9,6 +10,9 @@ export const checkValidEmail: (email: string) => string = (email) => {
     }
     if (match.length > 1) {
         return 'Не может быть два символа @'
+    }
+    if (dot === null) {
+        return 'Неверный формат почты'
     }
 
     return 'ok'

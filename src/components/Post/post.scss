@@ -1,8 +1,33 @@
 @use '../../UI/colors.scss' as *;
 
 .post {
+    position: relative;
     border-radius: 10px;
     background-color: $main-white;
+
+    &__redact-block {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        &__pen {
+            color: rgb(65, 65, 227);
+            cursor: pointer;
+            transition: all 0.5s linear;
+            &:hover {
+                scale: 1.2;
+            }
+        }
+        &__delete {
+            color: rgb(222, 43, 43);
+            cursor: pointer;
+            transition: all 0.5s linear;
+
+            &:hover {
+                scale: 1.2;
+            }
+        }
+    }
+
     &__img {
         width: 100%;
         border-radius: 10px 10px 0 0;

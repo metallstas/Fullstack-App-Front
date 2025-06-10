@@ -109,7 +109,6 @@ const authSlice = createSlice({
                     state.error = undefined
                     state.data = action.payload
                     state.isAuth = true
-                    window.localStorage.setItem('token', action.payload.token)
                 }
             )
             .addCase(

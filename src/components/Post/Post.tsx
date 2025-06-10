@@ -1,7 +1,9 @@
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined'
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined'
+import DeleteIcon from '@mui/icons-material/Delete'
+import CreateIcon from '@mui/icons-material/Create'
 import './post.scss'
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { href, Link } from 'react-router'
 import { ROUTES } from '@/routes/routes'
 import defailtImg from '@/UI/images/default-img.png'
@@ -32,8 +34,27 @@ export const Post: FC<PostProps> = ({
     imageAuthor,
     imagePost,
 }) => {
+    const [mousePost, setMousePost] = useState(false)
+
+    const handlerMouseOver = () => {
+        setMousePost(true)
+    }
+    const handlerMouseOut = () => {
+        setMousePost(false)
+    }
+
     return (
-        <article className="post">
+        <article
+            onMouseOver={handlerMouseOver}
+            onMouseOut={handlerMouseOut}
+            className="post"
+        >
+            {mousePost ? (
+                <div className="post__redact-block">
+                    <CreateIcon className="post__redact-block__pen" />
+                    <DeleteIcon className="post__redact-block__delete" />
+                </div>
+            ) : null}
             <Link to={href(ROUTES.POST, { postId: id })}>
                 <img
                     className="post__img"
