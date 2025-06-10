@@ -5,12 +5,17 @@ import { Button } from '@/UI/Button/Button'
 import user from '@/UI/images/user.png'
 import './register.scss'
 import { Eye } from '@/components/Eye/Eye'
-import { useAppDispatch } from '@/store/hooks'
+import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { checkValidEmail, checkValidName, checkValidPass } from '@/validation'
+import { fetchRegister } from '@/store/slices/register'
+import { fetchUserData } from '@/store/slices/auth'
+import { Navigate } from 'react-router'
+import { ROUTES } from '@/routes/routes'
 
 const Register: FC = () => {
     const dispatch = useAppDispatch()
-
+    const isAuth = useAppSelector((state) => state.auth.isAuth)
+    const [submit, setSubmit] = useState(false)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [userName, setUserName] = useState('')
@@ -21,7 +26,7 @@ const Register: FC = () => {
 
     const errorBorder = (error: string) => {
         if (error !== 'ok' && error !== '') {
-            return 'register__error-border'
+            return 'error-border'
         }
         return ''
     }
@@ -29,17 +34,23 @@ const Register: FC = () => {
     const handlerName = (e: React.ChangeEvent<HTMLInputElement>) => {
         const name = e.currentTarget.value
         setUserName(name)
-        setErrorName(checkValidName(name))
+        if (submit) {
+            setErrorName(checkValidName(name))
+        }
     }
     const handlerEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
         const email = e.currentTarget.value
         setEmail(email)
-        setErrorEmail(checkValidEmail(email))
+        if (submit) {
+            setErrorEmail(checkValidEmail(email))
+        }
     }
     const handlerPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
         const password = e.currentTarget.value
         setPassword(password)
-        setErrorPassword(checkValidPass(password))
+        if (submit) {
+            setErrorPassword(checkValidPass(password))
+        }
     }
     const handlerVisible = () => {
         setVisiblePassword((prev) => !prev)
@@ -50,12 +61,34 @@ const Register: FC = () => {
         setErrorEmail(checkValidEmail(email))
         setErrorName(checkValidName(userName))
         setErrorPassword(checkValidPass(password))
+        setSubmit(true)
         const isValid =
             checkValidEmail(email) === 'ok' &&
             checkValidName(userName) === 'ok' &&
             checkValidPass(password) === 'ok'
-        console.log(isValid)
-        // if ()
+        if (!isValid) {
+            return
+        }
+
+        const data = { email, password, fullName: userName }
+        const resp = dispatch(fetchRegister(data))
+        console.log(resp)
+        resp.then(() => {
+            dispatch(
+                fetchUserData({
+                    email: email,
+                    password: password,
+                })
+            )
+        })
+
+        setEmail('')
+        setPassword('')
+        setUserName('')
+    }
+
+    if (isAuth) {
+        return <Navigate to={ROUTES.HOME} />
     }
 
     return (

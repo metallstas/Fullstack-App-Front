@@ -7,6 +7,7 @@ import './header.scss'
 
 export const Header = () => {
     const isAuth = useAppSelector((state) => state.auth.isAuth)
+    const fullName = useAppSelector((state) => state.auth.fullName)
     const dispatch = useAppDispatch()
     const handlerLogout = () => {
         if (window.confirm('Вы действительно хотите выйти?')) dispatch(logout())
@@ -17,7 +18,7 @@ export const Header = () => {
                 <CustomLink
                     customClass="header__home"
                     to={ROUTES.HOME}
-                    text="My Blog"
+                    text={fullName ? fullName : 'My Blog'}
                 />
                 <div className="buttons-block">
                     {isAuth ? (

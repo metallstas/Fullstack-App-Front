@@ -16,11 +16,13 @@ type initialState = {
     error: string | undefined
     isAuth: boolean
     status: string
+    fullName: string
 }
 
 const initialState: initialState = {
     data: null,
     error: undefined,
+    fullName: '',
     isAuth: false,
     status: 'loading',
 }
@@ -88,6 +90,7 @@ const authSlice = createSlice({
                     state.status = 'idle'
                     state.error = undefined
                     state.data = action.payload
+                    state.fullName = action.payload.fullName
                     state.isAuth = true
                     window.localStorage.setItem('token', action.payload.token)
                 }
