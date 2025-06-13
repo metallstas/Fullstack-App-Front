@@ -10,7 +10,9 @@ import { fetchAuthMe } from '@/store/slices/auth'
 export const App = () => {
     const dispatch = useAppDispatch()
     useEffect(() => {
-        dispatch(fetchAuthMe())
+        if (window.localStorage.getItem('token')) {
+            dispatch(fetchAuthMe())
+        }
     })
     return (
         <div className="app">

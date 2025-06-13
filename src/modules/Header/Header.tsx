@@ -7,11 +7,12 @@ import './header.scss'
 
 export const Header = () => {
     const isAuth = useAppSelector((state) => state.auth.isAuth)
-    const fullName = useAppSelector((state) => state.auth.fullName)
+    const fullName = useAppSelector((state) => state.auth.data?.fullName)
     const dispatch = useAppDispatch()
     const handlerLogout = () => {
         if (window.confirm('Вы действительно хотите выйти?')) dispatch(logout())
     }
+    console.log(fullName)
     return (
         <header className="header">
             <div className="header__container">

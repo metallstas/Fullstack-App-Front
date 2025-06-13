@@ -8,11 +8,13 @@ import { href, Link } from 'react-router'
 import { ROUTES } from '@/routes/routes'
 import defailtImg from '@/UI/images/default-img.png'
 import defailtUserImg from '@/UI/images/user.png'
+import { useAppSelector } from '@/store/hooks'
 
 type PostProps = {
     isFullPost?: boolean
     id: string
     title: string
+    authorId: string
     text: string
     tags: string[]
     authorName: string
@@ -33,9 +35,11 @@ export const Post: FC<PostProps> = ({
     authorName,
     imageAuthor,
     imagePost,
+    authorId,
 }) => {
     const [mousePost, setMousePost] = useState(false)
-
+    const authorLoginId = useAppSelector((state) => state.auth.data?._id)
+    const isAuthor = authorLoginId === authorId
     const handlerMouseOver = () => {
         setMousePost(true)
     }
@@ -49,7 +53,7 @@ export const Post: FC<PostProps> = ({
             onMouseOut={handlerMouseOut}
             className="post"
         >
-            {mousePost ? (
+            {mousePost && isAuthor ? (
                 <div className="post__redact-block">
                     <CreateIcon className="post__redact-block__pen" />
                     <DeleteIcon className="post__redact-block__delete" />

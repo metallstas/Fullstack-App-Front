@@ -2,10 +2,9 @@ import { Author } from '@/types'
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 type InitialState = {
-    name: string
-    email: string
-    password: string
-    visiblePass: boolean
+    data: TRegAuthor | null
+    status: string
+    error: string | undefined
 }
 
 type TRegAuthor = Author & { token: string }
@@ -19,7 +18,7 @@ type TUserData = {
 export const fetchRegister = createAsyncThunk<
     TRegAuthor,
     TUserData,
-    { rejectValue: any }
+    { rejectValue: string }
 >('registerSlice/fetchRegister', async (userData, { rejectWithValue }) => {
     const response = await fetch('http://localhost:4444/auth/register', {
         method: 'POST',
@@ -30,17 +29,16 @@ export const fetchRegister = createAsyncThunk<
     })
 
     if (!response.ok) {
-        return rejectWithValue(response.json())
+        const res = await response.json()
+        return rejectWithValue(res.message)
     }
-    console.log(response.json())
     return response.json()
 })
 
 const initialState: InitialState = {
-    name: '',
-    email: '',
-    password: '',
-    visiblePass: false,
+    data: null,
+    status: 'idle',
+    error: undefined,
 }
 
 const registerSlice = createSlice({
@@ -48,9 +46,25 @@ const registerSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(fetchRegister.fulfilled, (state, action) => {
-            console.log(action.payload)
-        })
+        builder
+            .addCase(fetchRegister.pending, (state) => {
+                state.status = 'loading'
+            })
+            .addCase(
+                fetchRegister.fulfilled,
+                (state, action: PayloadAction<TRegAuthor>) => {
+                    state.status = 'idle'
+                    state.error = undefined
+                    state.data = action.payload
+                }
+            )
+            .addCase(
+                fetchRegister.rejected,
+                (state, action: PayloadAction<string | undefined>) => {
+                    state.error = action.payload
+                    state.status = 'idle'
+                }
+            )
     },
 })
 

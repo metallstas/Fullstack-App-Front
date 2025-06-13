@@ -15,6 +15,7 @@ import { ROUTES } from '@/routes/routes'
 const Register: FC = () => {
     const dispatch = useAppDispatch()
     const isAuth = useAppSelector((state) => state.auth.isAuth)
+    const regError = useAppSelector((state) => state.register.error)
     const [submit, setSubmit] = useState(false)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -23,6 +24,11 @@ const Register: FC = () => {
     const [errorName, setErrorName] = useState('')
     const [errorEmail, setErrorEmail] = useState('')
     const [errorPassword, setErrorPassword] = useState('')
+
+    const isDisabled =
+        checkValidEmail(email) === 'ok' &&
+        checkValidPass(password) === 'ok' &&
+        checkValidName(userName) === 'ok'
 
     const errorBorder = (error: string) => {
         if (error !== 'ok' && error !== '') {
@@ -71,20 +77,20 @@ const Register: FC = () => {
         }
 
         const data = { email, password, fullName: userName }
-        const resp = dispatch(fetchRegister(data))
-        console.log(resp)
-        resp.then(() => {
-            dispatch(
-                fetchUserData({
-                    email: email,
-                    password: password,
-                })
-            )
+        const res = dispatch(fetchRegister(data))
+        res.then((res) => {
+            if (res.meta.requestStatus !== 'rejected') {
+                dispatch(
+                    fetchUserData({
+                        email: email,
+                        password: password,
+                    })
+                )
+                setEmail('')
+                setPassword('')
+                setUserName('')
+            }
         })
-
-        setEmail('')
-        setPassword('')
-        setUserName('')
     }
 
     if (isAuth) {
@@ -126,7 +132,7 @@ const Register: FC = () => {
                     </label>
 
                     <span></span>
-                    <label className="register__password__last">
+                    <label className="register__password register__password__last">
                         <Input
                             customClass={`${errorBorder(errorPassword)}`}
                             type={visiblePassword ? 'text' : 'password'}
@@ -145,6 +151,12 @@ const Register: FC = () => {
                             </span>
                         ) : null}
                     </label>
+
+                    {regError ? (
+                        <span className="register__error register__error__serv">
+                            {regError}
+                        </span>
+                    ) : null}
 
                     <div>
                         <Button

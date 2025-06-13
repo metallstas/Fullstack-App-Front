@@ -4,12 +4,16 @@ import { useAppSelector } from '@/store/hooks'
 
 export const PostList = () => {
     const posts = useAppSelector((state) => state.posts.posts)
+    if (!posts) {
+        return <h2>Нет постов</h2>
+    }
 
     return (
         <section className="posts">
             {posts.map((post) => {
                 return (
                     <Post
+                        authorId={post.author._id}
                         key={post._id}
                         id={post._id}
                         title={post.title}

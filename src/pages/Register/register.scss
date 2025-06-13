@@ -10,6 +10,7 @@
     margin-right: auto;
 
     form {
+        position: relative;
         display: flex;
         flex-direction: column;
         margin-top: 15px;
@@ -31,6 +32,11 @@
         transform: translateX(-50%);
         background-color: none;
         font-size: 12px;
+        &__serv {
+            position: absolute;
+            color: red;
+            top: 73%;
+        }
     }
 
     &__wrapper {
@@ -43,6 +49,9 @@
         position: relative;
 
         margin-bottom: 20px;
+        input:focus {
+            border: none;
+        }
         &__last {
             position: relative;
             margin-bottom: 0;
