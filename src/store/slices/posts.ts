@@ -47,6 +47,7 @@ export const fetchPostById = createAsyncThunk<
     string | undefined,
     { rejectValue: string }
 >('posts/fethcPostById', async (id, { rejectWithValue }) => {
+    console.log(id)
     const response = await fetch(`http://localhost:4444/posts/${id}`, {
         method: 'GET',
         headers: {
@@ -55,11 +56,10 @@ export const fetchPostById = createAsyncThunk<
     })
 
     if (!response.ok) {
-        console.log('response', response)
-        return rejectWithValue(response.statusText)
+        return rejectWithValue(await response.json())
     }
 
-    return response.json()
+    return await response.json()
 })
 
 type InitialState = {

@@ -46,6 +46,7 @@ export const Post: FC<PostProps> = ({
     const handlerMouseOut = () => {
         setMousePost(false)
     }
+    console.log(imagePost)
 
     return (
         <article
@@ -62,7 +63,11 @@ export const Post: FC<PostProps> = ({
             <Link to={href(ROUTES.POST, { postId: id })}>
                 <img
                     className="post__img"
-                    src={imagePost ? imagePost : defailtImg}
+                    src={
+                        imagePost
+                            ? `http://localhost:4444${imagePost}`
+                            : defailtImg
+                    }
                     alt="img post"
                 />
             </Link>
@@ -83,7 +88,7 @@ export const Post: FC<PostProps> = ({
                 >
                     <p className="post__title">{title}</p>
                 </Link>
-                {isFullPost ? <p>{text}</p> : null}
+                {isFullPost ? <p className="post__text">{text}</p> : null}
                 <p className="post__tags">{tags.map((tag) => `#${tag} `)}</p>
                 <div className="post__views-block">
                     <div className="post__views-block__views">

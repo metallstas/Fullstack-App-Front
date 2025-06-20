@@ -12,7 +12,7 @@ export const Header = () => {
     const handlerLogout = () => {
         if (window.confirm('Вы действительно хотите выйти?')) dispatch(logout())
     }
-    console.log(fullName)
+
     return (
         <header className="header">
             <div className="header__container">

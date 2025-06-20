@@ -1,21 +1,23 @@
 import { ToolsText } from '@/components/ToolsText/ToolsText'
-import { useRef, useState } from 'react'
+import { FC } from 'react'
 
 import './text-editor.scss'
 
-export const TextEditor = () => {
-    const [text, setText] = useState<string>('')
-    const textRef = useRef<HTMLDivElement>(null)
+type TextEditorPops = {
+    setText: (value: string) => void
+    text: string
+}
 
+export const TextEditor: FC<TextEditorPops> = ({ setText, text }) => {
     return (
         <section className="text-editor">
             <ToolsText />
-            <div
-                ref={textRef}
+            <textarea
                 contentEditable={true}
-                onChange={() => setText('')}
+                onChange={(e) => setText(e.currentTarget.value)}
                 className={`text-editor__text`}
-            ></div>
+                value={text}
+            ></textarea>
         </section>
     )
 }

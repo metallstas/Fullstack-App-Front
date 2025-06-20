@@ -58,7 +58,6 @@ const Login = () => {
         setValidPassword(checkValidPass(password))
 
         checkValidPass(password)
-        console.log('submit')
     }
 
     const handlerVisible = () => {

@@ -25,18 +25,13 @@ const Register: FC = () => {
     const [errorEmail, setErrorEmail] = useState('')
     const [errorPassword, setErrorPassword] = useState('')
 
-    const isDisabled =
-        checkValidEmail(email) === 'ok' &&
-        checkValidPass(password) === 'ok' &&
-        checkValidName(userName) === 'ok'
-
     const errorBorder = (error: string) => {
         if (error !== 'ok' && error !== '') {
             return 'error-border'
         }
         return ''
     }
-    console.log(errorEmail)
+
     const handlerName = (e: React.ChangeEvent<HTMLInputElement>) => {
         const name = e.currentTarget.value
         setUserName(name)

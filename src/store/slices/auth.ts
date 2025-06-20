@@ -30,7 +30,6 @@ export const fetchUserData = createAsyncThunk<
     { email: string; password: string },
     { rejectValue: string }
 >('authSlice/fetchUserData', async (dataUser, { rejectWithValue }) => {
-    console.log(dataUser)
     const response = await fetch('http://localhost:4444/auth/login', {
         method: 'POST',
         headers: {

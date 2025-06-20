@@ -11,6 +11,7 @@ export const PostList = () => {
     return (
         <section className="posts">
             {posts.map((post) => {
+                console.log(post)
                 return (
                     <Post
                         authorId={post.author._id}

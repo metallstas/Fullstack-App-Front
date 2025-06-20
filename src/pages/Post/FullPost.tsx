@@ -11,13 +11,13 @@ import { PostSkeleton } from '@/UI/skeletons/PostSkeleton/PostSkeleton'
 
 const FullPost: FC = () => {
     const postById = useAppSelector((state) => state.posts.postById)
+    console.log('IMG', postById?.imageUrl)
     const statusPost = useAppSelector((state) => state.posts.statusFullPost)
     const params = useParams<PathParams[typeof ROUTES.POST]>()
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        const data = dispatch(fetchPostById(params.postId))
-        console.log(data)
+        dispatch(fetchPostById(params.postId))
     }, [])
 
     if (statusPost === 'loading') {
@@ -38,6 +38,7 @@ const FullPost: FC = () => {
                     createdAt={postById.createdAt}
                     imagePost={postById.imageUrl}
                     imageAuthor={''}
+                    authorId={postById.author._id}
                 />
             ) : null}
             <div className="fullpost__comments">
