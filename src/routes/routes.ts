@@ -6,10 +6,14 @@ export const ROUTES = {
     REGISTER: '/register',
     ADD_POST: '/add-post',
     POST: '/post/:postId',
+    POST_REDACT: '/edit/:postId',
 } as const
 
 export type PathParams = {
     [ROUTES.POST]: {
+        postId: string
+    }
+    [ROUTES.POST_REDACT]: {
         postId: string
     }
 }

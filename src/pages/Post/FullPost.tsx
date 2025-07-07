@@ -24,6 +24,8 @@ const FullPost: FC = () => {
         return <PostSkeleton />
     }
 
+    console.log(postById)
+
     return (
         <section className="fullpost">
             {postById ? (

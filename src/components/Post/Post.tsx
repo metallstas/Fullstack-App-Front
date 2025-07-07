@@ -8,7 +8,8 @@ import { href, Link } from 'react-router'
 import { ROUTES } from '@/routes/routes'
 import defailtImg from '@/UI/images/default-img.png'
 import defailtUserImg from '@/UI/images/user.png'
-import { useAppSelector } from '@/store/hooks'
+import { useAppDispatch, useAppSelector } from '@/store/hooks'
+import { fetchDeletePost } from '@/store/slices/posts'
 
 type PostProps = {
     isFullPost?: boolean
@@ -37,6 +38,7 @@ export const Post: FC<PostProps> = ({
     imagePost,
     authorId,
 }) => {
+    const dispatch = useAppDispatch()
     const [mousePost, setMousePost] = useState(false)
     const authorLoginId = useAppSelector((state) => state.auth.data?._id)
     const isAuthor = authorLoginId === authorId
@@ -46,7 +48,14 @@ export const Post: FC<PostProps> = ({
     const handlerMouseOut = () => {
         setMousePost(false)
     }
-    console.log(imagePost)
+
+    const handlerDeletePost = () => {
+        if (window.confirm('Вы действительно хотите удалить статью?')) {
+            dispatch(fetchDeletePost(id))
+        }
+    }
+
+    const handlerRedactPost = () => {}
 
     return (
         <article
@@ -56,13 +65,21 @@ export const Post: FC<PostProps> = ({
         >
             {mousePost && isAuthor ? (
                 <div className="post__redact-block">
-                    <CreateIcon className="post__redact-block__pen" />
-                    <DeleteIcon className="post__redact-block__delete" />
+                    <Link to={href(ROUTES.POST_REDACT, { postId: id })}>
+                        <CreateIcon
+                            className="post__redact-block__pen"
+                            onClick={handlerRedactPost}
+                        />
+                    </Link>
+                    <DeleteIcon
+                        className="post__redact-block__delete"
+                        onClick={handlerDeletePost}
+                    />
                 </div>
             ) : null}
             <Link to={href(ROUTES.POST, { postId: id })}>
                 <img
-                    className="post__img"
+                    className={isFullPost ? 'post__img__full' : 'post__img'}
                     src={
                         imagePost
                             ? `http://localhost:4444${imagePost}`
@@ -89,7 +106,11 @@ export const Post: FC<PostProps> = ({
                     <p className="post__title">{title}</p>
                 </Link>
                 {isFullPost ? <p className="post__text">{text}</p> : null}
-                <p className="post__tags">{tags.map((tag) => `#${tag} `)}</p>
+                <p className="post__tags">
+                    {tags.map((tag) => (
+                        <span className="post__tags__item">{`#${tag} `}</span>
+                    ))}
+                </p>
                 <div className="post__views-block">
                     <div className="post__views-block__views">
                         <span>

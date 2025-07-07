@@ -1,11 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Post } from '../../types'
 
-export const fetchNewPost = createAsyncThunk<
-    Post,
-    { title: string; text: string; tags: any },
-    { rejectValue: string }
->('posts/newPost', async (post, { rejectWithValue }) => {
+export const fetchNewPost = async (post: newPost) => {
     const response = await fetch('http://localhost:4444/posts', {
         method: 'POST',
 
@@ -16,12 +12,22 @@ export const fetchNewPost = createAsyncThunk<
         body: JSON.stringify(post),
     })
 
-    if (!response.ok) {
-        return rejectWithValue(response.statusText)
-    }
+    return response.json()
+}
+
+export const fetchUpdatePost = async (id: string, post: newPost) => {
+    const response = await fetch(`http://localhost:4444/posts/${id}`, {
+        method: 'PATCH',
+
+        headers: {
+            'Content-type': 'application/json',
+            Authorization: `Bearer ${window.localStorage.getItem('token')}`,
+        },
+        body: JSON.stringify(post),
+    })
 
     return response.json()
-})
+}
 
 export const fetchPosts = createAsyncThunk<
     Post[],
@@ -62,8 +68,38 @@ export const fetchPostById = createAsyncThunk<
     return await response.json()
 })
 
+export const fetchDeletePost = createAsyncThunk<
+    deletePost,
+    string,
+    { rejectValue: boolean }
+>('posts/fetchDeletePost', async (id, { rejectWithValue }) => {
+    const response = await fetch(`http://localhost:4444/posts/${id}`, {
+        method: 'DELETE',
+        headers: {
+            Authorization: `Bearer ${window.localStorage.getItem('token')}`,
+        },
+    })
+    if (!response.ok) {
+        return rejectWithValue(await response.json().then((res) => res.success))
+    }
+    return { success: await response.json().then((res) => res.success), id }
+})
+
+type deletePost = {
+    success: boolean
+    id?: string
+}
+
+type newPost = {
+    title: string
+    tags?: string[]
+    text: string
+    imageUrl?: string
+}
+
 type InitialState = {
     posts: Post[]
+    deletePost: boolean
     status: string
     sort: string
     error: undefined | string
@@ -75,6 +111,7 @@ type InitialState = {
 const initialState: InitialState = {
     posts: [],
     error: '',
+    deletePost: false,
     status: 'loading',
     sort: 'new',
     postById: undefined,
@@ -123,6 +160,15 @@ const postsSlice = createSlice({
             (state, action: PayloadAction<Post>) => {
                 state.postById = action.payload
                 state.statusFullPost = 'idle'
+            }
+        )
+        builder.addCase(
+            fetchDeletePost.fulfilled,
+            (state, action: PayloadAction<deletePost>) => {
+                state.deletePost = action.payload.success
+                state.posts = state.posts.filter(
+                    (post) => post._id !== action.payload.id
+                )
             }
         )
     },
